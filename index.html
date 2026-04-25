@@ -1019,6 +1019,35 @@
                 background: var(--border2);
                 border-radius: 3px;
             }
+
+            .auth-badge {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 12px;
+                font-family: "IBM Plex Mono", monospace;
+            }
+            .auth-badge .auth-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #4ade80;
+            }
+            .auth-badge .auth-label {
+                color: rgba(255, 255, 255, 0.5);
+            }
+            .card-actions {
+                display: none;
+            }
+            body.admin .card-actions {
+                display: flex;
+            }
+            body.admin .add-btn-wrap {
+                display: flex;
+            }
+            .add-btn-wrap {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -1030,14 +1059,33 @@
             </div>
             <div class="header-actions">
                 <button class="btn btn-ghost btn-sm" onclick="loadParts()">
-                    ↻ Обновить
+                    &#8635; Обновить
                 </button>
+                <div class="add-btn-wrap">
+                    <button
+                        class="btn btn-primary btn-sm"
+                        onclick="openAddModal()"
+                    >
+                        + Добавить
+                    </button>
+                </div>
+                <div class="auth-badge" id="authBadge" style="display: none">
+                    <div class="auth-dot"></div>
+                    <span class="auth-label">admin</span>
+                    <button
+                        class="btn btn-ghost btn-sm"
+                        onclick="logout()"
+                        style="padding: 4px 10px; font-size: 11px"
+                    >
+                        Выйти
+                    </button>
+                </div>
                 <button
-                    class="btn btn-primary btn-sm"
-                    onclick="openAddModal()"
-                    id="addBtn"
+                    class="btn btn-ghost btn-sm"
+                    id="loginBtn"
+                    onclick="openLoginModal()"
                 >
-                    + Добавить
+                    &#128273; Войти
                 </button>
             </div>
         </header>
@@ -1786,7 +1834,120 @@
                 );
             }
 
+            // ── AUTH ──────────────────────────────────────────────────────
+            const PWD_HASH =
+                "7a4e5c2d9f1b3e8a6c0d2f4b8e1a3c5d7f9b2e4a6c8d0f2b4e6a8c0d2f4b6e"; // sha256 placeholder
+            const CORRECT = "e83supercar";
+
+            let isAdmin = false;
+
+            function checkAuth() {
+                if (localStorage.getItem("bmw_admin") === CORRECT) {
+                    setAdmin(true);
+                }
+            }
+
+            function setAdmin(val) {
+                isAdmin = val;
+                document.body.classList.toggle("admin", val);
+                document.getElementById("authBadge").style.display = val
+                    ? "flex"
+                    : "none";
+                document.getElementById("loginBtn").style.display = val
+                    ? "none"
+                    : "";
+            }
+
+            function openLoginModal() {
+                document.getElementById("loginModal").classList.add("open");
+                setTimeout(
+                    () => document.getElementById("loginPwd").focus(),
+                    100,
+                );
+            }
+
+            function closeLoginModal() {
+                document.getElementById("loginModal").classList.remove("open");
+                document.getElementById("loginPwd").value = "";
+                document.getElementById("loginError").style.display = "none";
+            }
+
+            function doLogin() {
+                const pwd = document.getElementById("loginPwd").value;
+                if (pwd === CORRECT) {
+                    localStorage.setItem("bmw_admin", CORRECT);
+                    setAdmin(true);
+                    closeLoginModal();
+                    notify("Вы вошли как администратор ✓", "success");
+                } else {
+                    document.getElementById("loginError").style.display =
+                        "block";
+                    document.getElementById("loginPwd").value = "";
+                    document.getElementById("loginPwd").focus();
+                }
+            }
+
+            function logout() {
+                localStorage.removeItem("bmw_admin");
+                setAdmin(false);
+                notify("Вы вышли из режима редактирования", "");
+            }
+
+            function init() {
+                checkAuth();
+                setSyncStatus("loading", "загрузка...");
+                renderSkeleton();
+                loadParts();
+            }
+
             init();
         </script>
+
+        <!-- LOGIN MODAL -->
+        <div class="modal-overlay" id="loginModal" onclick="closeLoginModal()">
+            <div
+                class="modal"
+                style="max-width: 360px"
+                onclick="event.stopPropagation()"
+            >
+                <div class="modal-header">
+                    <span class="modal-title">Вход</span>
+                    <button class="modal-close" onclick="closeLoginModal()">
+                        ✕
+                    </button>
+                </div>
+                <div class="modal-body" style="padding-bottom: 20px">
+                    <div class="form-group">
+                        <label class="form-label">Пароль администратора</label>
+                        <input
+                            class="form-input"
+                            type="password"
+                            id="loginPwd"
+                            placeholder="••••••••••••"
+                            onkeydown="if (event.key === 'Enter') doLogin();"
+                        />
+                    </div>
+                    <div
+                        id="loginError"
+                        style="
+                            display: none;
+                            font-size: 12px;
+                            color: var(--red);
+                            margin-top: -8px;
+                            margin-bottom: 12px;
+                        "
+                    >
+                        Неверный пароль
+                    </div>
+                    <button
+                        class="btn btn-primary"
+                        style="width: 100%"
+                        onclick="doLogin()"
+                    >
+                        Войти
+                    </button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
