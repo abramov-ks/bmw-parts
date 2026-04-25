@@ -1,825 +1,1792 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMW E83 X3 — Запчасти БУ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0f0f0f; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
-    --accent: #e8a020; --accent2: #c8861a; --text: #e8e4dc; --text2: #888; --text3: #555;
-    --green: #3dba6e; --red: #e05050; --radius: 6px;
-  }
-  body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', sans-serif; min-height: 100vh; }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BMW E83 X3 — Запчасти БУ</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            :root {
+                --bg: #f2f4f7;
+                --surface: #ffffff;
+                --surface2: #f7f8fa;
+                --border: #e2e6ed;
+                --border2: #d0d5de;
+                --bmw-blue: #1c69d4;
+                --bmw-blue2: #1456b0;
+                --bmw-dark: #1a1f2e;
+                --bmw-silver: #8c96a8;
+                --text: #1a1f2e;
+                --text2: #5a6478;
+                --text3: #9aa3b2;
+                --green: #1a8c4e;
+                --green-bg: #eaf7f1;
+                --red: #c0392b;
+                --red-bg: #fdf0ef;
+                --amber: #b8860b;
+                --amber-bg: #fef9e7;
+                --radius: 8px;
+                --shadow:
+                    0 1px 3px rgba(0, 0, 0, 0.08),
+                    0 4px 12px rgba(0, 0, 0, 0.04);
+                --shadow-hover:
+                    0 4px 12px rgba(0, 0, 0, 0.12),
+                    0 8px 24px rgba(0, 0, 0, 0.06);
+            }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family: "Barlow", sans-serif;
+                min-height: 100vh;
+            }
 
-  /* HEADER */
-  .header {
-    border-bottom: 1px solid var(--border); padding: 0 32px;
-    display: flex; align-items: center; justify-content: space-between; height: 64px;
-    position: sticky; top: 0; background: rgba(15,15,15,0.95); backdrop-filter: blur(12px); z-index: 100;
-  }
-  .header-logo { display: flex; align-items: baseline; gap: 12px; }
-  .header-logo h1 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; }
-  .model-tag {
-    font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent);
-    background: rgba(232,160,32,0.12); border: 1px solid rgba(232,160,32,0.3);
-    padding: 3px 8px; border-radius: 3px; letter-spacing: 1px;
-  }
-  .header-actions { display: flex; align-items: center; gap: 10px; }
+            .header {
+                background: var(--bmw-dark);
+                padding: 0 32px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 60px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+            .header-logo {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+            .bmw-roundel {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: conic-gradient(
+                    #fff 0deg 90deg,
+                    #1c69d4 90deg 180deg,
+                    #fff 180deg 270deg,
+                    #1c69d4 270deg 360deg
+                );
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                flex-shrink: 0;
+                position: relative;
+            }
+            .bmw-roundel::after {
+                content: "";
+                position: absolute;
+                inset: 3px;
+                border-radius: 50%;
+                border: 1.5px solid rgba(255, 255, 255, 0.25);
+            }
+            .header-logo h1 {
+                font-family: "Barlow Condensed", sans-serif;
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                color: #fff;
+                text-transform: uppercase;
+            }
+            .model-tag {
+                font-family: "IBM Plex Mono", monospace;
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.45);
+                background: rgba(255, 255, 255, 0.07);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                padding: 3px 8px;
+                border-radius: 3px;
+                letter-spacing: 1px;
+            }
+            .header-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
 
-  /* CONFIG BANNER */
-  .config-banner {
-    background: rgba(232,160,32,0.08); border-bottom: 1px solid rgba(232,160,32,0.25);
-    padding: 10px 32px; display: flex; align-items: center; gap: 12px; font-size: 12px;
-  }
-  .config-input {
-    flex: 1; max-width: 480px; background: var(--surface2); border: 1px solid rgba(232,160,32,0.3);
-    border-radius: var(--radius); color: var(--text); font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; padding: 7px 10px; outline: none;
-  }
-  .config-input:focus { border-color: var(--accent); }
-  .config-input::placeholder { color: var(--text3); }
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 8px 18px;
+                border-radius: var(--radius);
+                font-family: "Barlow", sans-serif;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                border: none;
+                transition: all 0.15s;
+                text-decoration: none;
+            }
+            .btn-primary {
+                background: var(--bmw-blue);
+                color: #fff;
+            }
+            .btn-primary:hover {
+                background: var(--bmw-blue2);
+            }
+            .btn-ghost {
+                background: rgba(255, 255, 255, 0.08);
+                color: rgba(255, 255, 255, 0.7);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+            }
+            .btn-ghost:hover {
+                background: rgba(255, 255, 255, 0.14);
+                color: #fff;
+            }
+            .btn-ghost-dark {
+                background: transparent;
+                color: var(--text2);
+                border: 1px solid var(--border2);
+            }
+            .btn-ghost-dark:hover {
+                border-color: var(--bmw-blue);
+                color: var(--bmw-blue);
+            }
+            .btn-sm {
+                padding: 6px 14px;
+                font-size: 12px;
+            }
+            .btn:disabled {
+                opacity: 0.45;
+                cursor: not-allowed;
+            }
 
-  /* BUTTONS */
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
-    border-radius: var(--radius); font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; text-decoration: none;
-  }
-  .btn-primary { background: var(--accent); color: #000; }
-  .btn-primary:hover { background: var(--accent2); }
-  .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
-  .btn-ghost:hover { border-color: var(--text3); color: var(--text); }
-  .btn-sm { padding: 6px 12px; font-size: 12px; }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+            .hero-strip {
+                background: linear-gradient(
+                    135deg,
+                    #1a1f2e 0%,
+                    #1c3a6e 55%,
+                    #1c69d4 100%
+                );
+                padding: 28px 32px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .hero-text h2 {
+                font-family: "Barlow Condensed", sans-serif;
+                font-size: 30px;
+                font-weight: 800;
+                letter-spacing: 1px;
+                color: #fff;
+                text-transform: uppercase;
+                line-height: 1;
+                margin-bottom: 6px;
+            }
+            .hero-text p {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.5);
+            }
+            .hero-stats {
+                display: flex;
+                gap: 36px;
+            }
+            .hero-stat {
+                text-align: right;
+            }
+            .hero-stat-val {
+                font-family: "Barlow Condensed", sans-serif;
+                font-size: 30px;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1;
+            }
+            .hero-stat-label {
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.4);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                margin-top: 2px;
+                font-family: "IBM Plex Mono", monospace;
+            }
 
-  /* STATS */
-  .stats-bar {
-    background: var(--surface); border-bottom: 1px solid var(--border);
-    padding: 12px 32px; display: flex; gap: 32px; align-items: center;
-  }
-  .stat { display: flex; flex-direction: column; gap: 1px; }
-  .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--accent); line-height: 1; }
-  .stat-label { font-size: 11px; color: var(--text2); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; }
-  .stat-divider { width: 1px; height: 32px; background: var(--border); }
-  .sync-status {
-    margin-left: auto; display: flex; align-items: center; gap: 8px;
-    font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--text3);
-  }
-  .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); }
-  .sync-dot.ok { background: var(--green); }
-  .sync-dot.err { background: var(--red); }
-  .sync-dot.loading { background: var(--accent); animation: pulse 1s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+            .stats-bar {
+                background: var(--surface);
+                border-bottom: 1px solid var(--border);
+                padding: 14px 32px;
+                display: flex;
+                gap: 0;
+                align-items: center;
+                box-shadow: var(--shadow);
+            }
+            .stat {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                padding: 0 24px;
+                border-right: 1px solid var(--border);
+            }
+            .stat:first-child {
+                padding-left: 0;
+            }
+            .stat-val {
+                font-family: "Barlow Condensed", sans-serif;
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--bmw-blue);
+                line-height: 1;
+            }
+            .stat-label {
+                font-size: 10px;
+                color: var(--text3);
+                font-family: "IBM Plex Mono", monospace;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+            .sync-status {
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 11px;
+                font-family: "IBM Plex Mono", monospace;
+                color: var(--text3);
+            }
+            .sync-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--text3);
+            }
+            .sync-dot.ok {
+                background: var(--green);
+            }
+            .sync-dot.err {
+                background: var(--red);
+            }
+            .sync-dot.loading {
+                background: var(--bmw-blue);
+                animation: pulse 1s infinite;
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.3;
+                }
+            }
 
-  /* CONTROLS */
-  .controls { padding: 20px 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 340px; }
-  .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); }
-  .search-input {
-    width: 100%; background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); color: var(--text); font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 13px; padding: 9px 12px 9px 36px; outline: none; transition: border-color 0.15s;
-  }
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--text3); }
+            .controls {
+                padding: 14px 32px;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                flex-wrap: wrap;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border);
+                position: sticky;
+                top: 60px;
+                z-index: 90;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+            .search-wrap {
+                position: relative;
+                flex: 0 0 auto;
+                width: 260px;
+            }
+            .search-wrap svg {
+                position: absolute;
+                left: 11px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--text3);
+            }
+            .search-input {
+                width: 100%;
+                background: var(--bg);
+                border: 1px solid var(--border2);
+                border-radius: var(--radius);
+                color: var(--text);
+                font-family: "Barlow", sans-serif;
+                font-size: 13px;
+                padding: 8px 12px 8px 34px;
+                outline: none;
+                transition: all 0.15s;
+            }
+            .search-input:focus {
+                border-color: var(--bmw-blue);
+                box-shadow: 0 0 0 3px rgba(28, 105, 212, 0.1);
+            }
+            .search-input::placeholder {
+                color: var(--text3);
+            }
+            .filter-chips {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+                flex: 1;
+            }
+            .chip {
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 500;
+                cursor: pointer;
+                border: 1px solid var(--border2);
+                background: transparent;
+                color: var(--text2);
+                font-family: "Barlow", sans-serif;
+                transition: all 0.15s;
+                white-space: nowrap;
+            }
+            .chip:hover {
+                border-color: var(--bmw-blue);
+                color: var(--bmw-blue);
+                background: rgba(28, 105, 212, 0.04);
+            }
+            .chip.active {
+                background: var(--bmw-blue);
+                color: #fff;
+                border-color: var(--bmw-blue);
+            }
+            .view-toggle {
+                display: flex;
+                border: 1px solid var(--border2);
+                border-radius: var(--radius);
+                overflow: hidden;
+                flex-shrink: 0;
+            }
+            .view-btn {
+                padding: 7px 11px;
+                background: transparent;
+                border: none;
+                color: var(--text3);
+                cursor: pointer;
+                transition: all 0.15s;
+                display: flex;
+                align-items: center;
+            }
+            .view-btn.active {
+                background: var(--bmw-blue);
+                color: #fff;
+            }
 
-  .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-  .chip {
-    padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
-    cursor: pointer; border: 1px solid var(--border); background: transparent;
-    color: var(--text2); font-family: 'IBM Plex Sans', sans-serif; transition: all 0.15s; white-space: nowrap;
-  }
-  .chip:hover { border-color: var(--accent); color: var(--accent); }
-  .chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
+            .catalog-wrap {
+                padding: 24px 32px 60px;
+            }
+            .catalog-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+                gap: 16px;
+            }
+            .catalog-list .catalog-grid {
+                grid-template-columns: 1fr;
+            }
 
-  .view-toggle { display: flex; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .view-btn { padding: 8px 12px; background: transparent; border: none; color: var(--text3); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; }
-  .view-btn.active { background: var(--surface2); color: var(--text); }
+            .card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                overflow: hidden;
+                transition:
+                    box-shadow 0.2s,
+                    transform 0.2s,
+                    border-color 0.2s;
+                cursor: pointer;
+                position: relative;
+                box-shadow: var(--shadow);
+            }
+            .card:hover {
+                box-shadow: var(--shadow-hover);
+                transform: translateY(-2px);
+                border-color: rgba(28, 105, 212, 0.4);
+            }
+            .card.sold {
+                opacity: 0.55;
+            }
+            .card-img {
+                width: 100%;
+                aspect-ratio: 4/3;
+                background: var(--bg);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text3);
+                font-size: 44px;
+                overflow: hidden;
+            }
+            .card-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s;
+            }
+            .card:hover .card-img img {
+                transform: scale(1.04);
+            }
+            .card-body {
+                padding: 14px 16px;
+            }
+            .card-category {
+                font-family: "IBM Plex Mono", monospace;
+                font-size: 10px;
+                color: var(--bmw-blue);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+            }
+            .card-name {
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 4px;
+                line-height: 1.35;
+                color: var(--text);
+            }
+            .card-oem {
+                font-family: "IBM Plex Mono", monospace;
+                font-size: 10px;
+                color: var(--text3);
+                margin-bottom: 7px;
+            }
+            .card-desc {
+                font-size: 12px;
+                color: var(--text2);
+                line-height: 1.55;
+                margin-bottom: 12px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .card-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-top: 10px;
+                border-top: 1px solid var(--border);
+            }
+            .card-price {
+                font-family: "Barlow Condensed", sans-serif;
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--bmw-blue);
+            }
+            .card-price .currency {
+                font-size: 14px;
+                color: var(--text3);
+                font-family: "Barlow", sans-serif;
+                font-weight: 400;
+                margin-left: 2px;
+            }
+            .badge {
+                font-size: 10px;
+                font-weight: 600;
+                padding: 3px 9px;
+                border-radius: 4px;
+                font-family: "IBM Plex Mono", monospace;
+            }
+            .badge-available {
+                background: var(--green-bg);
+                color: var(--green);
+            }
+            .badge-sold {
+                background: var(--red-bg);
+                color: var(--red);
+            }
+            .badge-reserved {
+                background: var(--amber-bg);
+                color: var(--amber);
+            }
+            .card-actions {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                display: flex;
+                gap: 4px;
+                opacity: 0;
+                transition: opacity 0.15s;
+            }
+            .card:hover .card-actions {
+                opacity: 1;
+            }
+            .icon-btn {
+                width: 29px;
+                height: 29px;
+                border-radius: 6px;
+                background: rgba(255, 255, 255, 0.93);
+                border: 1px solid var(--border2);
+                color: var(--text2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 12px;
+                transition: all 0.15s;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            }
+            .icon-btn:hover {
+                color: var(--bmw-blue);
+                border-color: var(--bmw-blue);
+            }
+            .icon-btn.danger:hover {
+                color: var(--red);
+                border-color: var(--red);
+            }
 
-  /* GRID */
-  .catalog-wrap { padding: 0 32px 48px; }
-  .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .catalog-list .catalog-grid { grid-template-columns: 1fr; }
+            .catalog-list .card {
+                display: grid;
+                grid-template-columns: 110px 1fr;
+            }
+            .catalog-list .card-img {
+                aspect-ratio: 1;
+                height: 100%;
+                font-size: 28px;
+            }
+            .catalog-list .card-body {
+                padding: 12px 16px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+            .catalog-list .card-main {
+                flex: 1;
+                min-width: 0;
+            }
+            .catalog-list .card-desc {
+                margin-bottom: 0;
+            }
+            .catalog-list .card-footer {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 6px;
+                border-top: none;
+                padding-top: 0;
+                flex-shrink: 0;
+            }
+            .catalog-list .card-actions {
+                top: 50%;
+                transform: translateY(-50%);
+            }
 
-  /* CARD */
-  .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-    overflow: hidden; transition: border-color 0.2s, transform 0.2s; cursor: pointer; position: relative;
-  }
-  .card:hover { border-color: rgba(232,160,32,0.4); transform: translateY(-2px); }
-  .card.sold { opacity: 0.5; }
-  .card-img {
-    width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--surface2);
-    display: flex; align-items: center; justify-content: center; color: var(--text3); font-size: 40px;
-  }
-  .card-img img { width: 100%; height: 100%; object-fit: cover; }
-  .card-body { padding: 14px 16px; }
-  .card-category { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-  .card-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
-  .card-desc { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .card-footer { display: flex; align-items: center; justify-content: space-between; }
-  .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--accent); letter-spacing: 1px; }
-  .card-price .currency { font-size: 14px; color: var(--text2); font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; margin-left: 2px; }
-  .badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 3px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; text-transform: uppercase; }
-  .badge-available { background: rgba(61,186,110,0.15); color: var(--green); }
-  .badge-sold { background: rgba(224,80,80,0.15); color: var(--red); }
-  .badge-reserved { background: rgba(232,160,32,0.15); color: var(--accent); }
-  .card-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s; }
-  .card:hover .card-actions { opacity: 1; }
-  .icon-btn {
-    width: 28px; height: 28px; border-radius: 4px; background: rgba(0,0,0,0.7);
-    border: 1px solid var(--border); color: var(--text2); display: flex; align-items: center;
-    justify-content: center; cursor: pointer; font-size: 12px; transition: all 0.15s;
-  }
-  .icon-btn:hover { color: var(--text); border-color: var(--text3); }
-  .icon-btn.danger:hover { color: var(--red); border-color: var(--red); }
+            .empty {
+                text-align: center;
+                padding: 80px 32px;
+                color: var(--text3);
+                grid-column: 1/-1;
+            }
+            .empty-icon {
+                font-size: 52px;
+                margin-bottom: 16px;
+            }
+            .empty h3 {
+                font-size: 18px;
+                color: var(--text2);
+                margin-bottom: 8px;
+                font-weight: 600;
+            }
+            .skeleton {
+                background: linear-gradient(
+                    90deg,
+                    #edf0f5 25%,
+                    #e4e8ef 50%,
+                    #edf0f5 75%
+                );
+                background-size: 200%;
+                animation: shimmer 1.2s infinite;
+            }
+            @keyframes shimmer {
+                0% {
+                    background-position: 200%;
+                }
+                100% {
+                    background-position: -200%;
+                }
+            }
+            .skeleton-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: var(--shadow);
+            }
+            .skeleton-img {
+                width: 100%;
+                aspect-ratio: 4/3;
+            }
+            .skeleton-body {
+                padding: 14px 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .skeleton-line {
+                height: 12px;
+                border-radius: 4px;
+            }
 
-  /* LIST VIEW */
-  .catalog-list .card { display: grid; grid-template-columns: 100px 1fr; border-radius: var(--radius); }
-  .catalog-list .card-img { aspect-ratio: 1; height: 100%; font-size: 24px; }
-  .catalog-list .card-body { padding: 12px 14px; display: flex; align-items: center; gap: 16px; }
-  .catalog-list .card-main { flex: 1; }
-  .catalog-list .card-desc { margin-bottom: 0; }
-  .catalog-list .card-footer { flex-direction: column; align-items: flex-end; gap: 6px; }
-  .catalog-list .card-actions { top: 50%; transform: translateY(-50%); }
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(26, 31, 46, 0.5);
+                backdrop-filter: blur(4px);
+                z-index: 200;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s;
+            }
+            .modal-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+            .modal {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                width: 100%;
+                max-width: 560px;
+                max-height: 90vh;
+                overflow-y: auto;
+                transform: translateY(16px);
+                transition: transform 0.2s;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+            }
+            .modal-overlay.open .modal {
+                transform: translateY(0);
+            }
+            .modal-header {
+                padding: 18px 24px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid var(--border);
+            }
+            .modal-title {
+                font-family: "Barlow Condensed", sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+            .modal-close {
+                width: 32px;
+                height: 32px;
+                border-radius: 6px;
+                background: var(--bg);
+                border: 1px solid var(--border2);
+                color: var(--text2);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 15px;
+                transition: all 0.15s;
+            }
+            .modal-close:hover {
+                border-color: var(--red);
+                color: var(--red);
+            }
+            .modal-body {
+                padding: 20px 24px 8px;
+            }
+            .modal-footer {
+                padding: 16px 24px 20px;
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+                border-top: 1px solid var(--border);
+            }
 
-  /* EMPTY / LOADING */
-  .empty { text-align: center; padding: 80px 32px; color: var(--text3); grid-column: 1/-1; }
-  .empty-icon { font-size: 48px; margin-bottom: 16px; }
-  .empty h3 { font-size: 18px; color: var(--text2); margin-bottom: 8px; }
-  .skeleton { background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%); background-size: 200%; animation: shimmer 1.2s infinite; border-radius: var(--radius); }
-  @keyframes shimmer { 0%{background-position:200%} 100%{background-position:-200%} }
-  .skeleton-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-  .skeleton-img { width: 100%; aspect-ratio: 4/3; }
-  .skeleton-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
-  .skeleton-line { height: 12px; border-radius: 4px; }
+            .form-group {
+                margin-bottom: 16px;
+            }
+            .form-label {
+                display: block;
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--text2);
+                margin-bottom: 6px;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+            .form-input,
+            .form-select,
+            .form-textarea {
+                width: 100%;
+                background: var(--bg);
+                border: 1px solid var(--border2);
+                border-radius: var(--radius);
+                color: var(--text);
+                font-family: "Barlow", sans-serif;
+                font-size: 13px;
+                padding: 9px 12px;
+                outline: none;
+                transition: all 0.15s;
+            }
+            .form-input:focus,
+            .form-select:focus,
+            .form-textarea:focus {
+                border-color: var(--bmw-blue);
+                box-shadow: 0 0 0 3px rgba(28, 105, 212, 0.1);
+            }
+            .form-select option {
+                background: #fff;
+            }
+            .form-textarea {
+                resize: vertical;
+                min-height: 80px;
+            }
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
 
-  /* MODAL */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
-    z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px;
-    opacity: 0; pointer-events: none; transition: opacity 0.2s;
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
-    transform: translateY(20px); transition: transform 0.2s;
-  }
-  .modal-overlay.open .modal { transform: translateY(0); }
-  .modal-header { padding: 20px 24px 0; display: flex; align-items: center; justify-content: space-between; }
-  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; }
-  .modal-close {
-    width: 32px; height: 32px; border-radius: 6px; background: var(--surface2);
-    border: 1px solid var(--border); color: var(--text2); cursor: pointer;
-    display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s;
-  }
-  .modal-close:hover { color: var(--text); border-color: var(--text3); }
-  .modal-body { padding: 20px 24px 24px; }
-  .modal-footer { padding: 0 24px 24px; display: flex; gap: 10px; justify-content: flex-end; }
+            .photo-upload {
+                border: 2px dashed var(--border2);
+                border-radius: var(--radius);
+                padding: 20px;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.15s;
+                color: var(--text3);
+                font-size: 13px;
+                background: var(--bg);
+            }
+            .photo-upload:hover {
+                border-color: var(--bmw-blue);
+                color: var(--bmw-blue);
+                background: rgba(28, 105, 212, 0.02);
+            }
+            .photo-upload input {
+                display: none;
+            }
+            .upload-icon {
+                font-size: 26px;
+                margin-bottom: 6px;
+            }
+            .photo-preview {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-top: 10px;
+            }
+            .photo-thumb-wrap {
+                position: relative;
+                display: inline-block;
+            }
+            .photo-thumb {
+                width: 64px;
+                height: 64px;
+                border-radius: 6px;
+                object-fit: cover;
+                border: 1px solid var(--border);
+                display: block;
+            }
+            .photo-thumb-wrap .remove-photo {
+                position: absolute;
+                top: -6px;
+                right: -6px;
+                width: 17px;
+                height: 17px;
+                background: var(--red);
+                border-radius: 50%;
+                border: 2px solid #fff;
+                color: white;
+                font-size: 9px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .uploading-indicator {
+                width: 64px;
+                height: 64px;
+                border-radius: 6px;
+                background: var(--bg);
+                border: 1px dashed var(--border2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                color: var(--text3);
+                flex-direction: column;
+                gap: 4px;
+            }
+            .mini-spinner {
+                width: 16px;
+                height: 16px;
+                border: 2px solid var(--border2);
+                border-top-color: var(--bmw-blue);
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
 
-  /* FORM */
-  .form-group { margin-bottom: 16px; }
-  .form-label { display: block; font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 6px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; text-transform: uppercase; }
-  .form-input, .form-select, .form-textarea {
-    width: 100%; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: var(--radius); color: var(--text); font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 13px; padding: 10px 12px; outline: none; transition: border-color 0.15s;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
-  .form-select option { background: var(--surface2); }
-  .form-textarea { resize: vertical; min-height: 80px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+            .ai-btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(28, 105, 212, 0.06);
+                border: 1px solid rgba(28, 105, 212, 0.2);
+                border-radius: var(--radius);
+                padding: 10px 14px;
+                color: var(--bmw-blue);
+                font-size: 12px;
+                font-family: "IBM Plex Mono", monospace;
+                cursor: pointer;
+                transition: all 0.15s;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 14px;
+                font-weight: 500;
+            }
+            .ai-btn:hover {
+                background: rgba(28, 105, 212, 0.1);
+            }
+            .ai-btn:disabled {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+            .ai-spinner {
+                width: 12px;
+                height: 12px;
+                border: 2px solid rgba(28, 105, 212, 0.2);
+                border-top-color: var(--bmw-blue);
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+            }
 
-  /* PHOTO UPLOAD */
-  .photo-upload {
-    border: 2px dashed var(--border); border-radius: var(--radius); padding: 24px;
-    text-align: center; cursor: pointer; transition: all 0.15s; color: var(--text3); font-size: 13px;
-  }
-  .photo-upload:hover { border-color: var(--accent); color: var(--text2); }
-  .photo-upload input { display: none; }
-  .upload-icon { font-size: 28px; margin-bottom: 8px; }
-  .photo-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-  .photo-thumb-wrap { position: relative; display: inline-block; }
-  .photo-thumb { width: 64px; height: 64px; border-radius: 4px; object-fit: cover; border: 1px solid var(--border); display: block; }
-  .photo-thumb-wrap .remove-photo {
-    position: absolute; top: -6px; right: -6px; width: 16px; height: 16px;
-    background: var(--red); border-radius: 50%; border: none; color: white;
-    font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  }
-  .uploading-indicator {
-    width: 64px; height: 64px; border-radius: 4px; background: var(--surface2);
-    border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: var(--text3); flex-direction: column; gap: 4px;
-  }
-  .mini-spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+            .detail-modal {
+                max-width: 680px;
+            }
+            .detail-photos {
+                position: relative;
+                background: var(--bg);
+                border-radius: 8px;
+                overflow: hidden;
+                aspect-ratio: 16/9;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text3);
+                font-size: 52px;
+                border: 1px solid var(--border);
+            }
+            .detail-photos img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            .photo-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.9);
+                border: 1px solid var(--border2);
+                color: var(--text);
+                width: 34px;
+                height: 34px;
+                border-radius: 6px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                box-shadow: var(--shadow);
+                transition: all 0.15s;
+            }
+            .photo-nav:hover {
+                background: #fff;
+                border-color: var(--bmw-blue);
+                color: var(--bmw-blue);
+            }
+            .photo-nav.prev {
+                left: 10px;
+            }
+            .photo-nav.next {
+                right: 10px;
+            }
+            .photo-dots {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 6px;
+            }
+            .dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.5);
+                cursor: pointer;
+                transition: background 0.15s;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+            }
+            .dot.active {
+                background: var(--bmw-blue);
+                border-color: var(--bmw-blue);
+            }
+            .detail-meta {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-bottom: 16px;
+            }
+            .meta-item {
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 10px 12px;
+            }
+            .meta-key {
+                font-size: 10px;
+                color: var(--text3);
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                margin-bottom: 4px;
+                font-weight: 600;
+            }
+            .meta-val {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--text);
+            }
+            .contact-btn {
+                display: block;
+                width: 100%;
+                padding: 13px;
+                background: var(--bmw-blue);
+                color: #fff;
+                font-weight: 600;
+                font-size: 14px;
+                text-align: center;
+                border-radius: var(--radius);
+                border: none;
+                cursor: pointer;
+                font-family: "Barlow", sans-serif;
+                transition: background 0.15s;
+                margin-top: 16px;
+            }
+            .contact-btn:hover {
+                background: var(--bmw-blue2);
+            }
 
-  /* AI BUTTON */
-  .ai-btn {
-    display: flex; align-items: center; gap: 8px; background: rgba(232,160,32,0.08);
-    border: 1px solid rgba(232,160,32,0.25); border-radius: var(--radius); padding: 10px 14px;
-    color: var(--accent); font-size: 12px; font-family: 'IBM Plex Mono', monospace;
-    cursor: pointer; transition: all 0.15s; width: 100%; justify-content: center; margin-bottom: 12px;
-  }
-  .ai-btn:hover { background: rgba(232,160,32,0.15); }
-  .ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .ai-spinner { width: 12px; height: 12px; border: 2px solid rgba(232,160,32,0.3); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+            .notif {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 12px 16px;
+                font-size: 13px;
+                z-index: 999;
+                transform: translateY(80px);
+                opacity: 0;
+                transition: all 0.25s;
+                max-width: 320px;
+                box-shadow: var(--shadow-hover);
+            }
+            .notif.show {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            .notif.success {
+                border-left: 3px solid var(--green);
+            }
+            .notif.error {
+                border-left: 3px solid var(--red);
+            }
 
-  /* DETAIL MODAL */
-  .detail-modal { max-width: 680px; }
-  .detail-photos {
-    position: relative; background: var(--surface2); border-radius: 8px; overflow: hidden;
-    aspect-ratio: 16/9; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;
-    color: var(--text3); font-size: 48px;
-  }
-  .detail-photos img { width: 100%; height: 100%; object-fit: contain; }
-  .photo-nav {
-    position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6);
-    border: 1px solid var(--border); color: var(--text); width: 32px; height: 32px;
-    border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px;
-  }
-  .photo-nav.prev { left: 10px; } .photo-nav.next { right: 10px; }
-  .photo-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.15s; }
-  .dot.active { background: var(--accent); }
-  .detail-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-  .meta-item { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; }
-  .meta-key { font-size: 10px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .meta-val { font-size: 13px; font-weight: 500; }
-  .contact-btn {
-    display: block; width: 100%; padding: 12px; background: var(--accent); color: #000;
-    font-weight: 600; font-size: 14px; text-align: center; border-radius: var(--radius);
-    border: none; cursor: pointer; font-family: 'IBM Plex Sans', sans-serif; transition: background 0.15s; margin-top: 16px;
-  }
-  .contact-btn:hover { background: var(--accent2); }
+            ::-webkit-scrollbar {
+                width: 6px;
+            }
+            ::-webkit-scrollbar-track {
+                background: var(--bg);
+            }
+            ::-webkit-scrollbar-thumb {
+                background: var(--border2);
+                border-radius: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="header-logo">
+                <div class="bmw-roundel"></div>
+                <h1>Запчасти</h1>
+                <span class="model-tag">E83 X3 · 2.0d N47</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-ghost btn-sm" onclick="loadParts()">
+                    ↻ Обновить
+                </button>
+                <button
+                    class="btn btn-primary btn-sm"
+                    onclick="openAddModal()"
+                    id="addBtn"
+                >
+                    + Добавить
+                </button>
+            </div>
+        </header>
 
-  /* NOTIF */
-  .notif {
-    position: fixed; bottom: 24px; right: 24px; background: var(--surface);
-    border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px;
-    font-size: 13px; z-index: 999; transform: translateY(100px); opacity: 0;
-    transition: all 0.3s; max-width: 320px; display: flex; align-items: center; gap: 10px;
-  }
-  .notif.show { transform: translateY(0); opacity: 1; }
-  .notif.success { border-color: rgba(61,186,110,0.4); }
-  .notif.error { border-color: rgba(224,80,80,0.4); }
-
-  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-</style>
-</head>
-<body>
-
-<header class="header">
-  <div class="header-logo">
-    <h1>БМВ Запчасти</h1>
-    <span class="model-tag">E83 X3 · 2.0i</span>
-  </div>
-  <div class="header-actions">
-    <button class="btn btn-ghost btn-sm" onclick="loadParts()">↻ Обновить</button>
-    <button class="btn btn-primary" onclick="openAddModal()" id="addBtn" disabled>+ Добавить</button>
-  </div>
-</header>
-
-<!-- CONFIG BANNER — скрывается после настройки -->
-<div class="config-banner" id="configBanner">
-  <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px;white-space:nowrap">⚙ APPS SCRIPT URL:</span>
-  <input class="config-input" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" oninput="onUrlInput()">
-  <button class="btn btn-primary btn-sm" onclick="saveScriptUrl()">Сохранить</button>
-  <a href="#setup" style="font-size:11px;color:var(--text3);white-space:nowrap;text-decoration:none" onclick="showSetup()">Как настроить?</a>
-</div>
-
-<div class="stats-bar">
-  <div class="stat"><span class="stat-val" id="statTotal">—</span><span class="stat-label">ВСЕГО ПОЗИЦИЙ</span></div>
-  <div class="stat-divider"></div>
-  <div class="stat"><span class="stat-val" id="statAvail">—</span><span class="stat-label">В НАЛИЧИИ</span></div>
-  <div class="stat-divider"></div>
-  <div class="stat"><span class="stat-val" id="statSold">—</span><span class="stat-label">ПРОДАНО</span></div>
-  <div class="stat-divider"></div>
-  <div class="stat"><span class="stat-val" id="statPrice">—</span><span class="stat-label">СУММА (РУБ)</span></div>
-  <div class="sync-status">
-    <div class="sync-dot" id="syncDot"></div>
-    <span id="syncLabel">не подключено</span>
-  </div>
-</div>
-
-<div class="controls">
-  <div class="search-wrap">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input class="search-input" type="text" placeholder="Поиск запчастей..." oninput="renderCatalog()" id="searchInput">
-  </div>
-  <div class="filter-chips">
-    <button class="chip active" onclick="setFilter('all',this)">Все</button>
-    <button class="chip" onclick="setFilter('available',this)">В наличии</button>
-    <button class="chip" onclick="setFilter('sold',this)">Продано</button>
-    <button class="chip" onclick="setFilter('Двигатель',this)">Двигатель</button>
-    <button class="chip" onclick="setFilter('Подвеска',this)">Подвеска</button>
-    <button class="chip" onclick="setFilter('Кузов',this)">Кузов</button>
-    <button class="chip" onclick="setFilter('Электрика',this)">Электрика</button>
-    <button class="chip" onclick="setFilter('Трансмиссия',this)">Трансмиссия</button>
-    <button class="chip" onclick="setFilter('Салон',this)">Салон</button>
-    <button class="chip" onclick="setFilter('Тормоза',this)">Тормоза</button>
-    <button class="chip" onclick="setFilter('Прочее',this)">Прочее</button>
-  </div>
-  <div class="view-toggle">
-    <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-    </button>
-    <button class="view-btn" id="listViewBtn" onclick="setView('list')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1.5" fill="currentColor"/><circle cx="3" cy="12" r="1.5" fill="currentColor"/><circle cx="3" cy="18" r="1.5" fill="currentColor"/></svg>
-    </button>
-  </div>
-</div>
-
-<div class="catalog-wrap" id="catalogWrap">
-  <div class="catalog-grid" id="catalogGrid"></div>
-</div>
-
-<!-- ADD/EDIT MODAL -->
-<div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <span class="modal-title" id="modalTitle">НОВАЯ ЗАПЧАСТЬ</span>
-      <button class="modal-close" onclick="closeAddModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Фотографии</label>
-        <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
-          <div class="upload-icon">📷</div>
-          <div>Нажмите чтобы добавить фото</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:4px">Загружаются напрямую в Google Drive</div>
-          <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhotoUpload(this)">
+        <div class="hero-strip">
+            <div class="hero-text">
+                <h2>BMW X3 E83 · БУ Запчасти</h2>
+                <p>
+                    Оригинальные детали, снятые с автомобиля · Самовывоз /
+                    доставка
+                </p>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-val" id="heroAvail">—</div>
+                    <div class="hero-stat-label">В наличии</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-val" id="heroPrice">—</div>
+                    <div class="hero-stat-label">Сумма (₽)</div>
+                </div>
+            </div>
         </div>
-        <div class="photo-preview" id="photoPreview"></div>
-      </div>
 
-      <button class="ai-btn" onclick="generateAIDescription()" id="aiBtn">
-        <span id="aiIcon">✦</span>
-        <span id="aiText">Сгенерировать описание через AI</span>
-      </button>
-
-      <div class="form-group">
-        <label class="form-label">Название запчасти *</label>
-        <input class="form-input" id="fName" placeholder="Например: Суппорт тормозной передний правый">
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Категория</label>
-          <select class="form-select" id="fCategory">
-            <option>Двигатель</option><option>Подвеска</option><option>Кузов</option>
-            <option>Электрика</option><option>Трансмиссия</option><option>Салон</option>
-            <option>Тормоза</option><option selected>Прочее</option>
-          </select>
+        <div class="stats-bar">
+            <div class="stat">
+                <span class="stat-val" id="statTotal">—</span
+                ><span class="stat-label">Позиций</span>
+            </div>
+            <div class="stat">
+                <span class="stat-val" id="statAvail">—</span
+                ><span class="stat-label">В наличии</span>
+            </div>
+            <div class="stat">
+                <span class="stat-val" id="statSold">—</span
+                ><span class="stat-label">Продано</span>
+            </div>
+            <div class="stat">
+                <span class="stat-val" id="statReserved">—</span
+                ><span class="stat-label">Резерв</span>
+            </div>
+            <div class="sync-status">
+                <div class="sync-dot" id="syncDot"></div>
+                <span id="syncLabel">загрузка...</span>
+            </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Статус</label>
-          <select class="form-select" id="fStatus">
-            <option value="available">В наличии</option>
-            <option value="reserved">Резерв</option>
-            <option value="sold">Продано</option>
-          </select>
+
+        <div class="controls">
+            <div class="search-wrap">
+                <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                <input
+                    class="search-input"
+                    type="text"
+                    placeholder="Поиск по названию, OEM..."
+                    oninput="renderCatalog()"
+                    id="searchInput"
+                />
+            </div>
+            <div class="filter-chips">
+                <button class="chip active" onclick="setFilter('all', this)">
+                    Все
+                </button>
+                <button class="chip" onclick="setFilter('available', this)">
+                    В наличии
+                </button>
+                <button class="chip" onclick="setFilter('sold', this)">
+                    Продано
+                </button>
+                <button class="chip" onclick="setFilter('Двигатель', this)">
+                    Двигатель
+                </button>
+                <button class="chip" onclick="setFilter('Подвеска', this)">
+                    Подвеска
+                </button>
+                <button class="chip" onclick="setFilter('Кузов', this)">
+                    Кузов
+                </button>
+                <button class="chip" onclick="setFilter('Электрика', this)">
+                    Электрика
+                </button>
+                <button class="chip" onclick="setFilter('Трансмиссия', this)">
+                    Трансмиссия
+                </button>
+                <button class="chip" onclick="setFilter('Салон', this)">
+                    Салон
+                </button>
+                <button class="chip" onclick="setFilter('Тормоза', this)">
+                    Тормоза
+                </button>
+                <button class="chip" onclick="setFilter('Прочее', this)">
+                    Прочее
+                </button>
+            </div>
+            <div class="view-toggle">
+                <button
+                    class="view-btn active"
+                    id="gridViewBtn"
+                    onclick="setView('grid')"
+                >
+                    <svg
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                </button>
+                <button
+                    class="view-btn"
+                    id="listViewBtn"
+                    onclick="setView('list')"
+                >
+                    <svg
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <line x1="8" y1="6" x2="21" y2="6" />
+                        <line x1="8" y1="12" x2="21" y2="12" />
+                        <line x1="8" y1="18" x2="21" y2="18" />
+                        <circle cx="3" cy="6" r="1.5" fill="currentColor" />
+                        <circle cx="3" cy="12" r="1.5" fill="currentColor" />
+                        <circle cx="3" cy="18" r="1.5" fill="currentColor" />
+                    </svg>
+                </button>
+            </div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Цена (руб)</label>
-          <input class="form-input" id="fPrice" type="number" placeholder="0">
+
+        <div class="catalog-wrap" id="catalogWrap">
+            <div class="catalog-grid" id="catalogGrid"></div>
         </div>
-        <div class="form-group">
-          <label class="form-label">OEM / Артикул</label>
-          <input class="form-input" id="fOem" placeholder="34116757747">
+
+        <!-- ADD/EDIT MODAL -->
+        <div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
+            <div class="modal" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <span class="modal-title" id="modalTitle"
+                        >Новая запчасть</span
+                    >
+                    <button class="modal-close" onclick="closeAddModal()">
+                        ✕
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Фотографии</label>
+                        <div
+                            class="photo-upload"
+                            onclick="
+                                document.getElementById('photoInput').click()
+                            "
+                        >
+                            <div class="upload-icon">📷</div>
+                            <div style="font-weight: 500; margin-bottom: 2px">
+                                Нажмите чтобы добавить фото
+                            </div>
+                            <div style="font-size: 11px; color: var(--text3)">
+                                JPG, PNG · загружаются в Google Drive
+                            </div>
+                            <input
+                                type="file"
+                                id="photoInput"
+                                accept="image/*"
+                                multiple
+                                onchange="handlePhotoUpload(this)"
+                            />
+                        </div>
+                        <div class="photo-preview" id="photoPreview"></div>
+                    </div>
+                    <button
+                        class="ai-btn"
+                        onclick="generateAIDescription()"
+                        id="aiBtn"
+                    >
+                        <span id="aiIcon">✦</span
+                        ><span id="aiText"
+                            >Сгенерировать описание через AI</span
+                        >
+                    </button>
+                    <div class="form-group">
+                        <label class="form-label">Название запчасти *</label>
+                        <input
+                            class="form-input"
+                            id="fName"
+                            placeholder="Например: Суппорт тормозной передний правый"
+                        />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Категория</label>
+                            <select class="form-select" id="fCategory">
+                                <option>Двигатель</option>
+                                <option>Подвеска</option>
+                                <option>Кузов</option>
+                                <option>Электрика</option>
+                                <option>Трансмиссия</option>
+                                <option>Салон</option>
+                                <option>Тормоза</option>
+                                <option selected>Прочее</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Статус</label>
+                            <select class="form-select" id="fStatus">
+                                <option value="available">В наличии</option>
+                                <option value="reserved">Резерв</option>
+                                <option value="sold">Продано</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Цена (руб)</label>
+                            <input
+                                class="form-input"
+                                id="fPrice"
+                                type="number"
+                                placeholder="0"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">OEM / Артикул</label>
+                            <input
+                                class="form-input"
+                                id="fOem"
+                                placeholder="34116757747"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Описание / состояние</label>
+                        <textarea
+                            class="form-textarea"
+                            id="fDesc"
+                            placeholder="Состояние, пробег на момент снятия, причина снятия..."
+                        ></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-ghost-dark"
+                        onclick="closeAddModal()"
+                    >
+                        Отмена
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        onclick="savePart()"
+                        id="saveBtn"
+                    >
+                        Сохранить
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Описание / состояние</label>
-        <textarea class="form-textarea" id="fDesc" placeholder="Состояние, пробег на момент снятия, причина снятия..."></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeAddModal()">Отмена</button>
-      <button class="btn btn-primary" onclick="savePart()" id="saveBtn">Сохранить</button>
-    </div>
-  </div>
-</div>
 
-<!-- DETAIL MODAL -->
-<div class="modal-overlay" id="detailModal" onclick="closeDetailModal(event)">
-  <div class="modal detail-modal" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <span class="modal-title" id="detailTitle"></span>
-      <button class="modal-close" onclick="closeDetailModal()">✕</button>
-    </div>
-    <div class="modal-body" id="detailBody"></div>
-  </div>
-</div>
-
-<!-- SETUP MODAL -->
-<div class="modal-overlay" id="setupModal" onclick="document.getElementById('setupModal').classList.remove('open')">
-  <div class="modal" style="max-width:600px" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <span class="modal-title">ИНСТРУКЦИЯ</span>
-      <button class="modal-close" onclick="document.getElementById('setupModal').classList.remove('open')">✕</button>
-    </div>
-    <div class="modal-body" style="font-size:13px;line-height:1.7;color:var(--text2)">
-      <div style="display:flex;flex-direction:column;gap:16px">
-        <div>
-          <div style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px;margin-bottom:6px">ШАГ 1 — GOOGLE SHEETS</div>
-          Открой <a href="https://sheets.google.com" target="_blank" style="color:var(--accent)">sheets.google.com</a> → создай новую таблицу → назови её как угодно.
+        <!-- DETAIL MODAL -->
+        <div
+            class="modal-overlay"
+            id="detailModal"
+            onclick="closeDetailModal(event)"
+        >
+            <div class="modal detail-modal" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <span class="modal-title" id="detailTitle"></span>
+                    <button class="modal-close" onclick="closeDetailModal()">
+                        ✕
+                    </button>
+                </div>
+                <div class="modal-body" id="detailBody"></div>
+                <div style="height: 20px"></div>
+            </div>
         </div>
-        <div>
-          <div style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px;margin-bottom:6px">ШАГ 2 — APPS SCRIPT</div>
-          В таблице: <b style="color:var(--text)">Расширения → Apps Script</b> → удали весь код → вставь содержимое файла <code style="background:var(--surface2);padding:2px 6px;border-radius:3px">Code.gs</code> из архива.
-        </div>
-        <div>
-          <div style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px;margin-bottom:6px">ШАГ 3 — DEPLOY</div>
-          В Apps Script: <b style="color:var(--text)">Развернуть → Новое развёртывание</b><br>
-          Тип: <b style="color:var(--text)">Веб-приложение</b><br>
-          Выполнять как: <b style="color:var(--text)">Я</b><br>
-          Доступ: <b style="color:var(--text)">Все</b><br>
-          → Нажать <b style="color:var(--text)">Развернуть</b> → разрешить доступ → скопировать URL.
-        </div>
-        <div>
-          <div style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px;margin-bottom:6px">ШАГ 4 — ВСТАВИТЬ URL</div>
-          Вставь скопированный URL в поле вверху страницы → нажать <b style="color:var(--text)">Сохранить</b>.
-        </div>
-        <div>
-          <div style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px;margin-bottom:6px">ШАГ 5 — GITHUB PAGES</div>
-          Создай репозиторий на GitHub → загрузи <code style="background:var(--surface2);padding:2px 6px;border-radius:3px">index.html</code> → Settings → Pages → выбрать ветку main → сохранить.<br>
-          Твоя ссылка: <code style="background:var(--surface2);padding:2px 6px;border-radius:3px">username.github.io/repo-name</code>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="notif" id="notif"></div>
+        <div class="notif" id="notif"></div>
 
-<script>
-const CAT_ICONS = {'Двигатель':'🔧','Подвеска':'🔩','Кузов':'🚗','Электрика':'⚡','Трансмиссия':'⚙️','Салон':'💺','Тормоза':'🛑','Прочее':'📦'};
-const STATUS_LABELS = {available:'В наличии',sold:'Продано',reserved:'Резерв'};
-const STATUS_BADGES = {available:'badge-available',sold:'badge-sold',reserved:'badge-reserved'};
+        <script>
+            const SCRIPT_URL =
+                "https://script.google.com/macros/s/AKfycbz3EihBL-pkiO58kskmf1Vv2TksxRU5S7a4Napb8-SNacGHQRBKdPxvk_Rz3rK4_W_oSw/exec";
+            const CAT_ICONS = {
+                Двигатель: "🔧",
+                Подвеска: "🔩",
+                Кузов: "🚗",
+                Электрика: "⚡",
+                Трансмиссия: "⚙️",
+                Салон: "💺",
+                Тормоза: "🛑",
+                Прочее: "📦",
+            };
+            const STATUS_LABELS = {
+                available: "В наличии",
+                sold: "Продано",
+                reserved: "Резерв",
+            };
+            const STATUS_BADGES = {
+                available: "badge-available",
+                sold: "badge-sold",
+                reserved: "badge-reserved",
+            };
 
-let parts = [];
-let currentFilter = 'all';
-let currentView = 'grid';
-let editingId = null;
-let pendingPhotos = []; // [{url, uploading}]
-let currentPhotoIdx = 0;
-let SCRIPT_URL = localStorage.getItem('bmw_script_url') || '';
+            let parts = [],
+                currentFilter = "all",
+                currentView = "grid",
+                editingId = null,
+                pendingPhotos = [],
+                currentPhotoIdx = 0;
 
-// ── INIT ──────────────────────────────────────────────────────
-function init() {
-  if (SCRIPT_URL) {
-    document.getElementById('scriptUrlInput').value = SCRIPT_URL;
-    document.getElementById('configBanner').style.display = 'none';
-    document.getElementById('addBtn').disabled = false;
-    loadParts();
-  } else {
-    setSyncStatus('', 'не подключено');
-    renderSkeleton();
-  }
-}
+            function init() {
+                setSyncStatus("loading", "загрузка...");
+                renderSkeleton();
+                loadParts();
+            }
 
-function onUrlInput() {}
+            async function api(body) {
+                const res = await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify(body),
+                });
+                return res.json();
+            }
 
-function saveScriptUrl() {
-  const val = document.getElementById('scriptUrlInput').value.trim();
-  if (!val.startsWith('https://script.google.com')) {
-    notify('Некорректный URL Apps Script', 'error'); return;
-  }
-  SCRIPT_URL = val;
-  localStorage.setItem('bmw_script_url', SCRIPT_URL);
-  document.getElementById('configBanner').style.display = 'none';
-  document.getElementById('addBtn').disabled = false;
-  loadParts();
-}
+            async function loadParts() {
+                setSyncStatus("loading", "загрузка...");
+                try {
+                    const data = await fetch(SCRIPT_URL).then((r) => r.json());
+                    if (!data.ok) throw new Error(data.error);
+                    parts = data.parts || [];
+                    setSyncStatus(
+                        "ok",
+                        "обновлено " +
+                            new Date().toLocaleTimeString("ru-RU", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                            }),
+                    );
+                    updateStats();
+                    renderCatalog();
+                } catch (e) {
+                    setSyncStatus("err", "ошибка соединения");
+                    notify("Не удалось загрузить данные", "error");
+                    renderCatalog();
+                }
+            }
 
-function showSetup() {
-  document.getElementById('setupModal').classList.add('open');
-}
+            function setSyncStatus(state, label) {
+                document.getElementById("syncDot").className =
+                    "sync-dot" + (state ? " " + state : "");
+                document.getElementById("syncLabel").textContent = label;
+            }
 
-// ── SYNC ──────────────────────────────────────────────────────
-function setSyncStatus(state, label) {
-  const dot = document.getElementById('syncDot');
-  dot.className = 'sync-dot' + (state ? ' ' + state : '');
-  document.getElementById('syncLabel').textContent = label;
-}
+            function updateStats() {
+                const avail = parts.filter((p) => p.status === "available");
+                const total = avail.reduce(
+                    (s, p) => s + (parseInt(p.price) || 0),
+                    0,
+                );
+                document.getElementById("statTotal").textContent = parts.length;
+                document.getElementById("statAvail").textContent = avail.length;
+                document.getElementById("statSold").textContent = parts.filter(
+                    (p) => p.status === "sold",
+                ).length;
+                document.getElementById("statReserved").textContent =
+                    parts.filter((p) => p.status === "reserved").length;
+                document.getElementById("heroAvail").textContent = avail.length;
+                document.getElementById("heroPrice").textContent =
+                    total.toLocaleString("ru-RU");
+            }
 
-async function api(body) {
-  const res = await fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: JSON.stringify(body)
-  });
-  return res.json();
-}
+            function setFilter(f, el) {
+                currentFilter = f;
+                document
+                    .querySelectorAll(".chip")
+                    .forEach((c) => c.classList.remove("active"));
+                el.classList.add("active");
+                renderCatalog();
+            }
 
-async function loadParts() {
-  setSyncStatus('loading', 'загрузка...');
-  try {
-    const data = await fetch(SCRIPT_URL).then(r => r.json());
-    if (!data.ok) throw new Error(data.error);
-    parts = data.parts || [];
-    setSyncStatus('ok', 'синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit',minute:'2-digit'}));
-    updateStats();
-    renderCatalog();
-  } catch(e) {
-    setSyncStatus('err', 'ошибка подключения');
-    notify('Не удалось загрузить данные: ' + e.message, 'error');
-    renderCatalog();
-  }
-}
+            function setView(v) {
+                currentView = v;
+                document.getElementById("catalogWrap").className =
+                    "catalog-wrap" + (v === "list" ? " catalog-list" : "");
+                document
+                    .getElementById("gridViewBtn")
+                    .classList.toggle("active", v === "grid");
+                document
+                    .getElementById("listViewBtn")
+                    .classList.toggle("active", v === "list");
+            }
 
-// ── RENDER ────────────────────────────────────────────────────
-function updateStats() {
-  const avail = parts.filter(p => p.status === 'available');
-  document.getElementById('statTotal').textContent = parts.length;
-  document.getElementById('statAvail').textContent = avail.length;
-  document.getElementById('statSold').textContent = parts.filter(p => p.status === 'sold').length;
-  document.getElementById('statPrice').textContent = avail.reduce((s,p) => s + (parseInt(p.price)||0), 0).toLocaleString('ru-RU');
-}
+            function filterParts() {
+                const q = document
+                    .getElementById("searchInput")
+                    .value.toLowerCase();
+                return parts.filter((p) => {
+                    const mf =
+                        currentFilter === "all" ||
+                        p.status === currentFilter ||
+                        p.category === currentFilter;
+                    const ms =
+                        !q ||
+                        (p.name || "").toLowerCase().includes(q) ||
+                        (p.desc || "").toLowerCase().includes(q) ||
+                        (p.oem || "").toLowerCase().includes(q);
+                    return mf && ms;
+                });
+            }
 
-function setFilter(f, el) {
-  currentFilter = f;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderCatalog();
-}
+            function renderSkeleton() {
+                document.getElementById("catalogGrid").innerHTML = Array(8)
+                    .fill(0)
+                    .map(
+                        () => `
+    <div class="skeleton-card"><div class="skeleton skeleton-img"></div>
+    <div class="skeleton-body"><div class="skeleton skeleton-line" style="width:35%"></div>
+    <div class="skeleton skeleton-line" style="width:85%"></div>
+    <div class="skeleton skeleton-line" style="width:55%"></div></div></div>`,
+                    )
+                    .join("");
+            }
 
-function setView(v) {
-  currentView = v;
-  document.getElementById('catalogWrap').className = 'catalog-wrap' + (v === 'list' ? ' catalog-list' : '');
-  document.getElementById('gridViewBtn').classList.toggle('active', v === 'grid');
-  document.getElementById('listViewBtn').classList.toggle('active', v === 'list');
-}
+            function renderCatalog() {
+                const grid = document.getElementById("catalogGrid");
+                const filtered = filterParts();
+                if (!filtered.length) {
+                    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтр или поисковый запрос</p></div>`;
+                    return;
+                }
+                grid.innerHTML = filtered.map((p) => cardHTML(p)).join("");
+            }
 
-function filterParts() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
-  return parts.filter(p => {
-    const matchFilter = currentFilter === 'all' || p.status === currentFilter || p.category === currentFilter;
-    const matchSearch = !q || (p.name||'').toLowerCase().includes(q) || (p.desc||'').toLowerCase().includes(q) || (p.oem||'').toLowerCase().includes(q);
-    return matchFilter && matchSearch;
-  });
-}
-
-function renderSkeleton() {
-  document.getElementById('catalogGrid').innerHTML = Array(6).fill(0).map(() => `
-    <div class="skeleton-card">
-      <div class="skeleton skeleton-img"></div>
-      <div class="skeleton-body">
-        <div class="skeleton skeleton-line" style="width:40%"></div>
-        <div class="skeleton skeleton-line" style="width:80%"></div>
-        <div class="skeleton skeleton-line" style="width:60%"></div>
-      </div>
-    </div>`).join('');
-}
-
-function renderCatalog() {
-  const grid = document.getElementById('catalogGrid');
-  const filtered = filterParts();
-  if (!filtered.length) {
-    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтр</p></div>`;
-    return;
-  }
-  grid.innerHTML = filtered.map(p => cardHTML(p)).join('');
-}
-
-function cardHTML(p) {
-  const photos = Array.isArray(p.photos) ? p.photos : [];
-  const imgHTML = photos.length
-    ? `<div class="card-img"><img src="${photos[0]}" alt="${p.name}" loading="lazy" onerror="this.parentElement.innerHTML='${CAT_ICONS[p.category]||'📦'}'"></div>`
-    : `<div class="card-img">${CAT_ICONS[p.category]||'📦'}</div>`;
-  const priceHTML = p.price
-    ? `<span class="card-price">${parseInt(p.price).toLocaleString('ru-RU')}<span class="currency">₽</span></span>`
-    : `<span class="card-price" style="color:var(--text3)">—</span>`;
-  return `<div class="card ${p.status==='sold'?'sold':''}" onclick="openDetail('${p.id}')">
+            function cardHTML(p) {
+                const photos = Array.isArray(p.photos) ? p.photos : [];
+                const imgHTML = photos.length
+                    ? `<div class="card-img"><img src="${photos[0]}" alt="${p.name}" loading="lazy" onerror="this.parentElement.innerHTML='${CAT_ICONS[p.category] || "📦"}'"></div>`
+                    : `<div class="card-img">${CAT_ICONS[p.category] || "📦"}</div>`;
+                const priceHTML = p.price
+                    ? `<span class="card-price">${parseInt(p.price).toLocaleString("ru-RU")}<span class="currency">₽</span></span>`
+                    : `<span style="font-size:12px;color:var(--text3)">Цена по запросу</span>`;
+                return `<div class="card ${p.status === "sold" ? "sold" : ""}" onclick="openDetail('${p.id}')">
     ${imgHTML}
     <div class="card-actions" onclick="event.stopPropagation()">
-      <div class="icon-btn" onclick="openEdit('${p.id}')" title="Редактировать">✎</div>
-      <div class="icon-btn danger" onclick="deletePart('${p.id}')" title="Удалить">✕</div>
+      <div class="icon-btn" onclick="openEdit('${p.id}')">✎</div>
+      <div class="icon-btn danger" onclick="deletePart('${p.id}')">✕</div>
     </div>
     <div class="card-body">
-      <div class="card-category">${CAT_ICONS[p.category]||''} ${p.category||''}</div>
+      <div class="card-category">${CAT_ICONS[p.category] || ""} ${p.category || ""}</div>
       <div class="card-name">${p.name}</div>
-      ${p.desc ? `<div class="card-desc">${p.desc}</div>` : ''}
-      <div class="card-footer">${priceHTML}<span class="badge ${STATUS_BADGES[p.status]||'badge-available'}">${STATUS_LABELS[p.status]||'В наличии'}</span></div>
+      ${p.oem ? `<div class="card-oem">${p.oem}</div>` : ""}
+      ${p.desc ? `<div class="card-desc">${p.desc}</div>` : ""}
+      <div class="card-footer">${priceHTML}<span class="badge ${STATUS_BADGES[p.status] || "badge-available"}">${STATUS_LABELS[p.status] || "В наличии"}</span></div>
     </div>
   </div>`;
-}
+            }
 
-// ── DETAIL ────────────────────────────────────────────────────
-function openDetail(id) {
-  const p = parts.find(x => x.id === id);
-  if (!p) return;
-  currentPhotoIdx = 0;
-  const photos = Array.isArray(p.photos) ? p.photos : [];
-  document.getElementById('detailTitle').textContent = p.name;
-
-  let photosHTML = photos.length
-    ? `<div class="detail-photos">
-        <img id="detailImg" src="${photos[0]}" alt="${p.name}">
-        ${photos.length > 1 ? `
-          <button class="photo-nav prev" onclick="changePhoto(${JSON.stringify(photos)}, -1)">‹</button>
-          <button class="photo-nav next" onclick="changePhoto(${JSON.stringify(photos)}, 1)">›</button>
-          <div class="photo-dots">${photos.map((_,i)=>`<div class="dot ${i===0?'active':''}" id="dot${i}"></div>`).join('')}</div>` : ''}
-      </div>`
-    : `<div class="detail-photos">${CAT_ICONS[p.category]||'📦'}</div>`;
-
-  document.getElementById('detailBody').innerHTML = `
-    ${photosHTML}
+            function openDetail(id) {
+                const p = parts.find((x) => x.id === id);
+                if (!p) return;
+                currentPhotoIdx = 0;
+                const photos = Array.isArray(p.photos) ? p.photos : [];
+                document.getElementById("detailTitle").textContent = p.name;
+                const photosHTML = photos.length
+                    ? `<div class="detail-photos"><img id="detailImg" src="${photos[0]}" alt="${p.name}">
+      ${
+          photos.length > 1
+              ? `
+        <button class="photo-nav prev" onclick="changePhoto(${JSON.stringify(photos).replace(/"/g, "&quot;")},-1)">&#8249;</button>
+        <button class="photo-nav next" onclick="changePhoto(${JSON.stringify(photos).replace(/"/g, "&quot;")},1)">&#8250;</button>
+        <div class="photo-dots">${photos.map((_, i) => `<div class="dot ${i === 0 ? "active" : ""}" id="dot${i}"></div>`).join("")}</div>`
+              : ""
+      }</div>`
+                    : `<div class="detail-photos">${CAT_ICONS[p.category] || "📦"}</div>`;
+                document.getElementById("detailBody").innerHTML = `${photosHTML}
     <div class="detail-meta">
-      <div class="meta-item"><div class="meta-key">Категория</div><div class="meta-val">${p.category||'—'}</div></div>
-      <div class="meta-item"><div class="meta-key">Статус</div><div class="meta-val"><span class="badge ${STATUS_BADGES[p.status]}">${STATUS_LABELS[p.status]||'—'}</span></div></div>
-      <div class="meta-item"><div class="meta-key">Цена</div><div class="meta-val" style="color:var(--accent)">${p.price ? parseInt(p.price).toLocaleString('ru-RU') + ' ₽' : '—'}</div></div>
-      ${p.oem ? `<div class="meta-item" style="grid-column:1/-1"><div class="meta-key">OEM / Артикул</div><div class="meta-val" style="font-family:'IBM Plex Mono',monospace;font-size:12px">${p.oem}</div></div>` : ''}
+      <div class="meta-item"><div class="meta-key">Категория</div><div class="meta-val">${p.category || "—"}</div></div>
+      <div class="meta-item"><div class="meta-key">Статус</div><div class="meta-val"><span class="badge ${STATUS_BADGES[p.status]}">${STATUS_LABELS[p.status] || "—"}</span></div></div>
+      <div class="meta-item"><div class="meta-key">Цена</div><div class="meta-val" style="color:var(--bmw-blue)">${p.price ? parseInt(p.price).toLocaleString("ru-RU") + " ₽" : "—"}</div></div>
+      ${p.oem ? `<div class="meta-item" style="grid-column:1/-1"><div class="meta-key">OEM / Артикул</div><div class="meta-val" style="font-family:'IBM Plex Mono',monospace;font-size:12px">${p.oem}</div></div>` : ""}
     </div>
-    ${p.desc ? `<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px">${p.desc}</div>` : ''}
-    <button class="contact-btn" onclick="copyContact('${p.name.replace(/'/g,"\\'")}','${p.price||''}')">📩 Написать по этой детали</button>
-  `;
-  document.getElementById('detailModal').classList.add('open');
-}
+    ${p.desc ? `<div style="font-size:13px;color:var(--text2);line-height:1.65">${p.desc}</div>` : ""}
+    <button class="contact-btn" onclick="copyContact('${p.name.replace(/'/g, "\\'")}','${p.price || ""}')">📩 Написать по этой детали</button>`;
+                document.getElementById("detailModal").classList.add("open");
+            }
 
-let _currentPhotos = [];
-function changePhoto(photos, dir) {
-  _currentPhotos = photos;
-  currentPhotoIdx = (currentPhotoIdx + dir + photos.length) % photos.length;
-  document.getElementById('detailImg').src = photos[currentPhotoIdx];
-  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentPhotoIdx));
-}
+            let _photos = [];
+            function changePhoto(photos, dir) {
+                _photos = photos;
+                currentPhotoIdx =
+                    (currentPhotoIdx + dir + photos.length) % photos.length;
+                document.getElementById("detailImg").src =
+                    photos[currentPhotoIdx];
+                document
+                    .querySelectorAll(".dot")
+                    .forEach((d, i) =>
+                        d.classList.toggle("active", i === currentPhotoIdx),
+                    );
+            }
+            function closeDetailModal(e) {
+                if (!e || e.target === document.getElementById("detailModal"))
+                    document
+                        .getElementById("detailModal")
+                        .classList.remove("open");
+            }
+            function copyContact(name, price) {
+                const txt = `Привет! Интересует запчасть: ${name}${price ? " (" + parseInt(price).toLocaleString("ru-RU") + " руб)" : ""}. Ещё в наличии?`;
+                navigator.clipboard
+                    .writeText(txt)
+                    .then(() =>
+                        notify(
+                            "Текст скопирован — вставь в мессенджер 👌",
+                            "success",
+                        ),
+                    );
+            }
 
-function closeDetailModal(e) {
-  if (!e || e.target === document.getElementById('detailModal'))
-    document.getElementById('detailModal').classList.remove('open');
-}
+            function openAddModal() {
+                editingId = null;
+                pendingPhotos = [];
+                document.getElementById("modalTitle").textContent =
+                    "Новая запчасть";
+                ["fName", "fPrice", "fOem", "fDesc"].forEach(
+                    (id) => (document.getElementById(id).value = ""),
+                );
+                document.getElementById("fCategory").value = "Прочее";
+                document.getElementById("fStatus").value = "available";
+                document.getElementById("photoPreview").innerHTML = "";
+                document.getElementById("addModal").classList.add("open");
+            }
+            function openEdit(id) {
+                const p = parts.find((x) => x.id === id);
+                if (!p) return;
+                editingId = id;
+                pendingPhotos = (p.photos || []).map((url) => ({
+                    url,
+                    uploading: false,
+                }));
+                document.getElementById("modalTitle").textContent =
+                    "Редактировать";
+                document.getElementById("fName").value = p.name || "";
+                document.getElementById("fCategory").value =
+                    p.category || "Прочее";
+                document.getElementById("fStatus").value =
+                    p.status || "available";
+                document.getElementById("fPrice").value = p.price || "";
+                document.getElementById("fOem").value = p.oem || "";
+                document.getElementById("fDesc").value = p.desc || "";
+                renderPhotoPreview();
+                document.getElementById("addModal").classList.add("open");
+            }
+            function closeAddModal(e) {
+                if (!e || e.target === document.getElementById("addModal"))
+                    document
+                        .getElementById("addModal")
+                        .classList.remove("open");
+            }
 
-function copyContact(name, price) {
-  const txt = `Привет! Интересует запчасть: ${name}${price ? ' (' + parseInt(price).toLocaleString('ru-RU') + ' руб)' : ''}. Ещё в наличии?`;
-  navigator.clipboard.writeText(txt).then(() => notify('Текст скопирован — вставь в мессенджер 👌', 'success'));
-}
+            function handlePhotoUpload(input) {
+                Array.from(input.files).forEach((file) => {
+                    const idx = pendingPhotos.length;
+                    pendingPhotos.push({ url: null, uploading: true });
+                    renderPhotoPreview();
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        try {
+                            const res = await api({
+                                action: "uploadPhoto",
+                                filename: file.name,
+                                data: e.target.result.split(",")[1],
+                                mimeType: file.type,
+                            });
+                            if (res.ok)
+                                pendingPhotos[idx] = {
+                                    url: res.url,
+                                    uploading: false,
+                                };
+                            else {
+                                pendingPhotos.splice(idx, 1);
+                                notify(
+                                    "Ошибка загрузки: " + res.error,
+                                    "error",
+                                );
+                            }
+                        } catch {
+                            pendingPhotos.splice(idx, 1);
+                            notify("Ошибка загрузки фото", "error");
+                        }
+                        renderPhotoPreview();
+                    };
+                    reader.readAsDataURL(file);
+                });
+                input.value = "";
+            }
+            function renderPhotoPreview() {
+                document.getElementById("photoPreview").innerHTML =
+                    pendingPhotos
+                        .map((p, i) =>
+                            p.uploading
+                                ? `<div class="uploading-indicator"><div class="mini-spinner"></div><span>загрузка</span></div>`
+                                : `<div class="photo-thumb-wrap"><img src="${p.url}" class="photo-thumb"><button class="remove-photo" onclick="removePhoto(${i})">&#x2715;</button></div>`,
+                        )
+                        .join("");
+            }
+            function removePhoto(i) {
+                pendingPhotos.splice(i, 1);
+                renderPhotoPreview();
+            }
 
-// ── ADD / EDIT ────────────────────────────────────────────────
-function openAddModal() {
-  editingId = null; pendingPhotos = [];
-  document.getElementById('modalTitle').textContent = 'НОВАЯ ЗАПЧАСТЬ';
-  ['fName','fPrice','fOem','fDesc'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('fCategory').value = 'Прочее';
-  document.getElementById('fStatus').value = 'available';
-  document.getElementById('photoPreview').innerHTML = '';
-  document.getElementById('addModal').classList.add('open');
-}
+            async function savePart() {
+                const name = document.getElementById("fName").value.trim();
+                if (!name) {
+                    notify("Введите название", "error");
+                    return;
+                }
+                if (pendingPhotos.some((p) => p.uploading)) {
+                    notify("Подождите — фото загружаются", "error");
+                    return;
+                }
+                const saveBtn = document.getElementById("saveBtn");
+                saveBtn.disabled = true;
+                saveBtn.textContent = "Сохранение...";
+                const part = {
+                    id:
+                        editingId ||
+                        Date.now().toString(36) +
+                            Math.random().toString(36).slice(2),
+                    name,
+                    category: document.getElementById("fCategory").value,
+                    status: document.getElementById("fStatus").value,
+                    price: document.getElementById("fPrice").value,
+                    oem: document.getElementById("fOem").value.trim(),
+                    desc: document.getElementById("fDesc").value.trim(),
+                    photos: pendingPhotos
+                        .filter((p) => p.url)
+                        .map((p) => p.url),
+                    updatedAt: Date.now(),
+                };
+                try {
+                    const res = await api({ action: "save", part });
+                    if (!res.ok) throw new Error(res.error);
+                    if (editingId) {
+                        const idx = parts.findIndex((p) => p.id === editingId);
+                        parts[idx] = part;
+                    } else parts.unshift(part);
+                    updateStats();
+                    renderCatalog();
+                    closeAddModal();
+                    notify(
+                        editingId
+                            ? "Запчасть обновлена ✓"
+                            : "Запчасть добавлена ✓",
+                        "success",
+                    );
+                } catch (e) {
+                    notify("Ошибка: " + e.message, "error");
+                }
+                saveBtn.disabled = false;
+                saveBtn.textContent = "Сохранить";
+            }
 
-function openEdit(id) {
-  const p = parts.find(x => x.id === id);
-  if (!p) return;
-  editingId = id;
-  pendingPhotos = (p.photos||[]).map(url => ({url, uploading: false}));
-  document.getElementById('modalTitle').textContent = 'РЕДАКТИРОВАТЬ';
-  document.getElementById('fName').value = p.name || '';
-  document.getElementById('fCategory').value = p.category || 'Прочее';
-  document.getElementById('fStatus').value = p.status || 'available';
-  document.getElementById('fPrice').value = p.price || '';
-  document.getElementById('fOem').value = p.oem || '';
-  document.getElementById('fDesc').value = p.desc || '';
-  renderPhotoPreview();
-  document.getElementById('addModal').classList.add('open');
-}
+            async function deletePart(id) {
+                if (!confirm("Удалить эту запчасть?")) return;
+                try {
+                    const res = await api({ action: "delete", id });
+                    if (!res.ok) throw new Error(res.error);
+                    parts = parts.filter((p) => p.id !== id);
+                    updateStats();
+                    renderCatalog();
+                    notify("Удалено", "success");
+                } catch (e) {
+                    notify("Ошибка: " + e.message, "error");
+                }
+            }
 
-function closeAddModal(e) {
-  if (!e || e.target === document.getElementById('addModal'))
-    document.getElementById('addModal').classList.remove('open');
-}
+            async function generateAIDescription() {
+                const nameVal = document.getElementById("fName").value.trim();
+                if (!nameVal) {
+                    notify("Введите название", "error");
+                    return;
+                }
+                const aiBtn = document.getElementById("aiBtn");
+                aiBtn.disabled = true;
+                document.getElementById("aiIcon").outerHTML =
+                    '<span id="aiIcon" class="ai-spinner"></span>';
+                document.getElementById("aiText").textContent = "Генерирую...";
+                try {
+                    const res = await fetch(
+                        "https://api.anthropic.com/v1/messages",
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                model: "claude-sonnet-4-20250514",
+                                max_tokens: 1000,
+                                messages: [
+                                    {
+                                        role: "user",
+                                        content: `Ты помощник по продаже БУ запчастей с BMW E83 X3 2.0d N47. Запчасть: "${nameVal}", категория: ${document.getElementById("fCategory").value}. Напиши краткое описание (2-3 предложения): типичное состояние б/у, что проверить покупателю, совместимость. Только русский текст, без заголовков.`,
+                                    },
+                                ],
+                            }),
+                        },
+                    );
+                    const data = await res.json();
+                    const text =
+                        data.content?.find((b) => b.type === "text")?.text ||
+                        "";
+                    if (text) {
+                        document.getElementById("fDesc").value = text.trim();
+                        notify("Описание готово ✓", "success");
+                    }
+                } catch {
+                    notify("Ошибка AI", "error");
+                }
+                aiBtn.disabled = false;
+                document.getElementById("aiIcon").outerHTML =
+                    '<span id="aiIcon">&#10022;</span>';
+                document.getElementById("aiText").textContent =
+                    "Сгенерировать описание через AI";
+            }
 
-// ── PHOTO UPLOAD ──────────────────────────────────────────────
-function handlePhotoUpload(input) {
-  Array.from(input.files).forEach(file => {
-    const idx = pendingPhotos.length;
-    pendingPhotos.push({url: null, uploading: true});
-    renderPhotoPreview();
+            let notifTimer;
+            function notify(msg, type = "") {
+                const el = document.getElementById("notif");
+                el.textContent = msg;
+                el.className = `notif ${type} show`;
+                clearTimeout(notifTimer);
+                notifTimer = setTimeout(
+                    () => el.classList.remove("show"),
+                    3000,
+                );
+            }
 
-    const reader = new FileReader();
-    reader.onload = async e => {
-      const base64 = e.target.result.split(',')[1];
-      const mimeType = file.type;
-      try {
-        const res = await api({action: 'uploadPhoto', filename: file.name, data: base64, mimeType});
-        if (res.ok) {
-          pendingPhotos[idx] = {url: res.url, uploading: false};
-        } else {
-          pendingPhotos.splice(idx, 1);
-          notify('Ошибка загрузки фото: ' + res.error, 'error');
-        }
-      } catch {
-        pendingPhotos.splice(idx, 1);
-        notify('Ошибка загрузки фото', 'error');
-      }
-      renderPhotoPreview();
-    };
-    reader.readAsDataURL(file);
-  });
-  input.value = '';
-}
-
-function renderPhotoPreview() {
-  document.getElementById('photoPreview').innerHTML = pendingPhotos.map((p, i) =>
-    p.uploading
-      ? `<div class="uploading-indicator"><div class="mini-spinner"></div><span>загрузка</span></div>`
-      : `<div class="photo-thumb-wrap">
-          <img src="${p.url}" class="photo-thumb" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22/>'">
-          <button class="remove-photo" onclick="removePhoto(${i})">✕</button>
-        </div>`
-  ).join('');
-}
-
-function removePhoto(i) { pendingPhotos.splice(i, 1); renderPhotoPreview(); }
-
-// ── SAVE / DELETE ─────────────────────────────────────────────
-async function savePart() {
-  const name = document.getElementById('fName').value.trim();
-  if (!name) { notify('Введите название запчасти', 'error'); return; }
-  if (pendingPhotos.some(p => p.uploading)) { notify('Подождите — фото ещё загружаются', 'error'); return; }
-
-  const saveBtn = document.getElementById('saveBtn');
-  saveBtn.disabled = true; saveBtn.textContent = 'Сохранение...';
-
-  const part = {
-    id: editingId || Date.now().toString(36) + Math.random().toString(36).slice(2),
-    name, category: document.getElementById('fCategory').value,
-    status: document.getElementById('fStatus').value,
-    price: document.getElementById('fPrice').value,
-    oem: document.getElementById('fOem').value.trim(),
-    desc: document.getElementById('fDesc').value.trim(),
-    photos: pendingPhotos.filter(p => p.url).map(p => p.url),
-    updatedAt: Date.now()
-  };
-
-  try {
-    const res = await api({action: 'save', part});
-    if (!res.ok) throw new Error(res.error);
-    if (editingId) { const idx = parts.findIndex(p => p.id === editingId); parts[idx] = part; }
-    else parts.unshift(part);
-    updateStats(); renderCatalog();
-    closeAddModal();
-    notify(editingId ? 'Запчасть обновлена ✓' : 'Запчасть добавлена ✓', 'success');
-  } catch(e) {
-    notify('Ошибка сохранения: ' + e.message, 'error');
-  }
-  saveBtn.disabled = false; saveBtn.textContent = 'Сохранить';
-}
-
-async function deletePart(id) {
-  if (!confirm('Удалить эту запчасть?')) return;
-  try {
-    const res = await api({action: 'delete', id});
-    if (!res.ok) throw new Error(res.error);
-    parts = parts.filter(p => p.id !== id);
-    updateStats(); renderCatalog();
-    notify('Удалено', 'success');
-  } catch(e) {
-    notify('Ошибка удаления: ' + e.message, 'error');
-  }
-}
-
-// ── AI DESCRIPTION ────────────────────────────────────────────
-async function generateAIDescription() {
-  const nameVal = document.getElementById('fName').value.trim();
-  if (!nameVal) { notify('Введите название запчасти', 'error'); return; }
-  const aiBtn = document.getElementById('aiBtn');
-  aiBtn.disabled = true;
-  document.getElementById('aiIcon').outerHTML = '<span id="aiIcon" class="ai-spinner"></span>';
-  document.getElementById('aiText').textContent = 'Генерирую...';
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514', max_tokens: 1000,
-        messages: [{role:'user', content:`Ты помощник по продаже БУ автозапчастей с BMW E83 X3 (2.0i). Запчасть: "${nameVal}", категория: ${document.getElementById('fCategory').value}. Напиши краткое описание для каталога (2-3 предложения): типичное состояние б/у, что проверить покупателю, совместимость. Только русский текст, без заголовков.`}]
-      })
-    });
-    const data = await res.json();
-    const text = data.content?.find(b => b.type==='text')?.text || '';
-    if (text) { document.getElementById('fDesc').value = text.trim(); notify('Описание готово ✓', 'success'); }
-  } catch { notify('Ошибка AI', 'error'); }
-  aiBtn.disabled = false;
-  document.getElementById('aiIcon').outerHTML = '<span id="aiIcon">✦</span>';
-  document.getElementById('aiText').textContent = 'Сгенерировать описание через AI';
-}
-
-// ── NOTIFY ────────────────────────────────────────────────────
-let notifTimer;
-function notify(msg, type = '') {
-  const el = document.getElementById('notif');
-  el.textContent = msg; el.className = `notif ${type} show`;
-  clearTimeout(notifTimer);
-  notifTimer = setTimeout(() => el.classList.remove('show'), 3000);
-}
-
-init();
-</script>
-</body>
+            init();
+        </script>
+    </body>
 </html>
