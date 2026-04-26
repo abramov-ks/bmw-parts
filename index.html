@@ -1623,20 +1623,7 @@
 
             function updateStats() {
                 const avail = parts.filter((p) => p.status === "available");
-                const total = avail.reduce(
-                    (s, p) => s + (parseInt(p.price) || 0),
-                    0,
-                );
-                document.getElementById("statTotal").textContent = parts.length;
                 document.getElementById("statAvail").textContent = avail.length;
-                document.getElementById("statSold").textContent = parts.filter(
-                    (p) => p.status === "sold",
-                ).length;
-                document.getElementById("statReserved").textContent =
-                    parts.filter((p) => p.status === "reserved").length;
-                document.getElementById("heroAvail").textContent = avail.length;
-                document.getElementById("heroPrice").textContent =
-                    total.toLocaleString("ru-RU");
             }
 
             function setFilter(f, el) {
